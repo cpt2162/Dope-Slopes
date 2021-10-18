@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Resort Slopes</title>
+	<link rel="stylesheet" type="text/css" href="assets/css/project3.css"/>
+</head>
+<body>
+	<ul class="nav">
+	<li class="navli"><a href="index.html">DopeSlopes</a></li>
+	<li class="navli"><a href="resorts.html">Resorts</a></li>
+	<li class="navli"><a href="backcountry.html">Backcountry</a></li>
+	<li class="navli"><a href="ski_towns.html">Ski Towns</a></li>
+	<li class="navli"><a href="snowboarding.html">Snowboarding</a></li>
+	<li class="navli"><a href="skiing.html">Skiing</a></li>
+	<li class="navli"><a href="weather.html">Weather Watch</a></li>
+	<li class="navli"><a href="resources.html">Resources</a></li>
+	</ul>
+	<br>
+	<img class="logo" src="assets/images/logo.jpg" alt="DopeSlope's Logo" width="220" height="200"/>
+	<h2>Consistency is Key</h2>
+	<p>Let’s be honest, nobody wants to put the quality of their skiing up to chance. 
+	If you’re looking for good crisp slopes that are fresh and new every day, resort skiing
+	is the answer for you. This section provides ratings for resort venues only. Resorts are
+	great for consistent conditions, an intense terrain park, a variety of food, and in most
+	cases a great nightlife atmosphere.</p><br>
+	
+	<h2 class="rankings">Resort Rankings</h2>
+	<div class="grid-container">
+	<h4 class="firstname">#1. Whistler</h4>
+	<img class="firstpic" src="assets/images/whistler.jpg" alt="Whistler" height="200" width="400"/>
+	<ul class="firstinfo">
+	<li>Powder: 465" per year</li>
+	<li>Vertical Drop: 2,198'</li>
+	<li>Cost: $$$</li>
+	<li>Availability: 11/28 to 4/19</li>
+	<li>Nightlife: ***</li>
+	</ul>
+	<br>
+	
+	<h4 class="secondname">#2. Revelstoke</h4>
+	<img class="secondpic" src="assets/images/revelstoke.jpg" alt="Revelstoke" height="200" width="400"/>
+	<ul class="secondinfo">
+	<li>Powder: 420" per year</li>
+	<li>Vertical Drop: 5,620'</li>
+	<li>Cost: $$</li>
+	<li>Availability: 11/30 to 4/19</li>
+	<li>Nightlife: **</li>
+	</ul>
+	<br>
+	
+	<h4 class="thirdname">#3. Courchevel</h4>
+	<img class="thirdpic" src="assets/images/courchevel.jpg" alt="Courchevel" height="200" width="400"/>
+	<ul class="thirdinfo">
+	<li>Powder: 150" per year</li>
+	<li>Vertical Drop: 4,553'</li>
+	<li>Cost: $$$$$</li>
+	<li>Availability: 11/21 to 4/28</li>
+	<li>Nightlife: **</li>
+	</ul>
+	<br>
+	
+	<h4 class="fourthname">#4. Zermatt</h4>
+	<img class="fourthpic" src="assets/images/zermatt.jpg" alt="Zermatt" height="200" width="400"/>
+	<ul class="fourthinfo">
+	<li>Powder: 470" per year</li>
+	<li>Vertical Drop: 7,477"</li>
+	<li>Cost: $$$</li>
+	<li>Availability: 11/23 to 4/24</li>
+	<li>Nightlife: ****</li>
+	</ul>
+	<br>
+	
+	<h4 class="fifthname">#5. Vail</h4>
+	<img class="fifthpic" src="assets/images/vail.jpg" alt="Vail" height="200" width="400"/>
+	<ul class="fifthinfo">
+	<li>Powder: 108" per year</li>
+	<li>Vertical Drop: 3,450'</li>
+	<li>Cost: $$$$</li>
+	<li>Availability: 11/27 to 4/26</li>
+	<li>Nightlife: ***</li>
+	</ul>
+	</div>
+
+
+	<div id="snowflakeContainer">
+ 	 <span class="snowflake"></span>
+	</div>
+
+	<script>
+  	var snowflakes = [];
+  	var browserWidth;
+  	var browserHeight;
+
+  	var numberOfSnowflakes = 50;
+
+  	var resetPosition = false;
+
+  	var enableAnimations = false;
+  	var reduceMotionQuery = matchMedia("(prefers-reduced-motion)");
+
+  	function setAccessibilityState() {
+    	if (reduceMotionQuery.matches) {
+      	enableAnimations = false;
+    	} else { 
+      	enableAnimations = true;
+    	}
+  	}
+  	setAccessibilityState();
+
+  	reduceMotionQuery.addListener(setAccessibilityState);
+
+  	function setup() {
+    	if (enableAnimations) {
+      	window.addEventListener("DOMContentLoaded", generateSnowflakes, false);
+      	window.addEventListener("resize", setResetFlag, false);
+    	}
+  	}
+  	setup();
+
+  	
+  	function Snowflake(element, speed, xPos, yPos) {
+    	this.element = element;
+    	this.speed = speed;
+    	this.xPos = xPos;
+    	this.yPos = yPos;
+    	this.scale = 1;
+
+    	this.counter = 0;
+    	this.sign = Math.random() < 0.5 ? 1 : -1;
+
+    	this.element.style.opacity = (.1 + Math.random()) / 3;
+  	}
+
+  	Snowflake.prototype.update = function () {
+    	this.counter += this.speed / 5000;
+    	this.xPos += this.sign * this.speed * Math.cos(this.counter) / 40;
+    	this.yPos += Math.sin(this.counter) / 40 + this.speed / 30;
+    	this.scale = .5 + Math.abs(10 * Math.cos(this.counter) / 20);
+    	
+    	setTransform(Math.round(this.xPos), Math.round(this.yPos), this.scale, this.element);
+
+    	if (this.yPos > browserHeight) {
+      	this.yPos = -50;
+    	}
+  	}
+
+  	function setTransform(xPos, yPos, scale, el) {
+    	el.style.transform = `translate3d(${xPos}px, ${yPos}px, 0) scale(${scale}, ${scale})`;
+  	}
+
+  	function generateSnowflakes() {
+
+    	var originalSnowflake = document.querySelector(".snowflake");
+
+    	var snowflakeContainer = originalSnowflake.parentNode;
+    	snowflakeContainer.style.display = "block";
+
+    	browserWidth = document.documentElement.clientWidth;
+    	browserHeight = document.documentElement.clientHeight;
+
+    	for (var i = 0; i < numberOfSnowflakes; i++) {
+
+      	var snowflakeClone = originalSnowflake.cloneNode(true);
+      	snowflakeContainer.appendChild(snowflakeClone);
+
+      	var initialXPos = getPosition(50, browserWidth);
+      	var initialYPos = getPosition(50, browserHeight);
+      	var speed = 5 + Math.random() * 40;
+
+      	var snowflakeObject = new Snowflake(snowflakeClone,
+        	speed,
+        	initialXPos,
+        	initialYPos);
+      	snowflakes.push(snowflakeObject);
+    	}
+
+    	snowflakeContainer.removeChild(originalSnowflake);
+
+    	moveSnowflakes();
+  	}
+
+  	function moveSnowflakes() {
+
+    	if (enableAnimations) {
+      	for (var i = 0; i < snowflakes.length; i++) {
+        	var snowflake = snowflakes[i];
+        	snowflake.update();
+      	}      
+    	}
+
+    	if (resetPosition) {
+      	browserWidth = document.documentElement.clientWidth;
+      	browserHeight = document.documentElement.clientHeight;
+
+      	for (var i = 0; i < snowflakes.length; i++) {
+        	var snowflake = snowflakes[i];
+
+        	snowflake.xPos = getPosition(50, browserWidth);
+        	snowflake.yPos = getPosition(50, browserHeight);
+      	}
+
+      	resetPosition = false;
+    	}
+
+    	requestAnimationFrame(moveSnowflakes);
+  	}
+
+  	function getPosition(offset, size) {
+    	return Math.round(-1 * offset + Math.random() * (size + 2 * offset));
+  	}
+
+  	function setResetFlag(e) {
+    	resetPosition = true;
+  	}
+	</script>
+</body>
+</html>
